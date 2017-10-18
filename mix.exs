@@ -5,9 +5,14 @@ defmodule Wildcard.Mixfile do
     [
       app: :wildcard,
       version: "0.1.0",
-      elixir: "~> 1.5",
+      elixir: "~> 1.3",
+      build_embedded: Mix.env == :prod,
       start_permanent: Mix.env == :prod,
-      deps: deps()
+      description: description(),
+      package: package(),
+      deps: deps(),
+      name: "Wildcard",
+      source_url: "https://github.com/mbramson/wildcard"
     ]
   end
 
@@ -21,8 +26,24 @@ defmodule Wildcard.Mixfile do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      # {:dep_from_hexpm, "~> 0.3.0"},
-      # {:dep_from_git, git: "https://github.com/elixir-lang/my_dep.git", tag: "0.1.0"},
+      {:ex_doc, "~> 0.18", only: :dev}
+    ]
+  end
+
+  defp description() do
+    """
+    Wildcard is a utility package for interacting with wildcard expressions which
+    are intended to be matched against strings.
+    """
+  end
+
+  defp package() do
+    [
+      name: "wildcard",
+      files: ["lib", "priv", "mix.exs", "README*", "LICENSE*"],
+      maintainers: ["Mathew Bramson"],
+      licenses: ["MIT"],
+      links: %{"GitHub" => "https://github.com/mbramson/wildcard"}
     ]
   end
 end

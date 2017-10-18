@@ -1,7 +1,7 @@
 # Wildcard
 
-Wildcard is a utility module for interacting with wildcard expressions which
-are intended to be matched against string expressions.
+Wildcard is a utility package for interacting with wildcard expressions which
+are intended to be matched against strings.
 
 ## Installation
 
