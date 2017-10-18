@@ -7,7 +7,8 @@ defmodule Wildcard do
   @doc """
   Converts an expression that can contain wildcards into a regex that can be
   used to match text. The resulting regex does not anchor to the beginning or
-  end of the string using ^ or $.
+  end of the string using ^ or $. All non-wildcard text in the given expression
+  is converted to raw text.
 
   ## Example
 
