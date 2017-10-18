@@ -40,7 +40,7 @@ defmodule Wildcard.Mixfile do
   defp package() do
     [
       name: "wildcard",
-      files: ["lib", "priv", "mix.exs", "README*", "LICENSE*"],
+      files: ["lib", "mix.exs", "README.md", "LICENSE.md"],
       maintainers: ["Mathew Bramson"],
       licenses: ["MIT"],
       links: %{"GitHub" => "https://github.com/mbramson/wildcard"}
