@@ -19,6 +19,7 @@ defmodule Wildcard do
   def to_regex(expression) do
     {:ok, regex} = expression
       |> String.split("*")
+      |> Enum.filter(&(&1 != ""))
       |> Enum.map(&Regex.escape(&1))
       |> Enum.join(".*")
       |> Regex.compile
