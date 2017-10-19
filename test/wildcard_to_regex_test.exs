@@ -20,5 +20,9 @@ defmodule WildcardTest do
     test "properly escapes a string containing a special regex operator" do
       assert to_regex("cat.dog/+") == ~r/cat\.dog\/\+/
     end
+
+    test "treats consecutive wildcards as one" do
+      assert to_regex("cat***dog") == ~r/cat.*dog/
+    end
   end
 end
