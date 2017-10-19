@@ -14,15 +14,30 @@ defmodule WildcardTest do
     end
 
     test "converts a string containing a wildcard to the appropriate regex" do
-      assert to_regex("cat*dog") == ~r/cat.*dog/
+      assert to_regex("cat*dog") == ~r/cat.+dog/
     end
 
     test "properly escapes a string containing a special regex operator" do
       assert to_regex("cat.dog/+") == ~r/cat\.dog\/\+/
     end
 
-    test "treats consecutive wildcards as one" do
-      assert to_regex("cat***dog") == ~r/cat.*dog/
+    test "generates regex matching zero or more if the match_type is :zero_or_more" do
+      assert to_regex("cat*dog", match_type: :zero_or_more) == ~r/cat.*dog/
     end
+
+    test "treats consecutive wildcards as one if the match_type is :zero_or_more" do
+      assert to_regex("cat***dog", match_type: :zero_or_more) == ~r/cat.*dog/
+    end
+
+    test "does not treat consecutive wildcards as one if match type is :one_or_more" do
+      assert to_regex("cat**dog")                           == ~r/cat.+.+dog/
+      assert to_regex("cat**dog", match_type: :one_or_more) == ~r/cat.+.+dog/
+    end
+
+    test "genereates a regex matching one character if match_type is :one" do
+      assert to_regex("cat*dog", match_type: :one)  == ~r/cat.dog/
+      assert to_regex("cat**dog", match_type: :one) == ~r/cat..dog/
+    end
+
   end
 end
