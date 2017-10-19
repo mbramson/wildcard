@@ -14,15 +14,15 @@ defmodule WildcardTest do
     end
 
     test "converts a string containing a wildcard to the appropriate regex" do
-      assert to_regex("cat*dog") == ~r/cat.*dog/
+      assert to_regex("cat*dog") == ~r/cat.+dog/
     end
 
     test "properly escapes a string containing a special regex operator" do
       assert to_regex("cat.dog/+") == ~r/cat\.dog\/\+/
     end
 
-    test "treats consecutive wildcards as one" do
-      assert to_regex("cat***dog") == ~r/cat.*dog/
+    test "treats consecutive wildcards as one if the match_type is :zero_or_more" do
+      assert to_regex("cat***dog", match_type: :zero_or_more) == ~r/cat.*dog/
     end
   end
 end
