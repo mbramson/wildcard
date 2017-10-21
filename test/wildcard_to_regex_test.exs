@@ -4,7 +4,34 @@ defmodule WildcardTest do
 
   import Wildcard
 
-  describe "to_regex" do
+  describe "matches?/2" do
+    test "empty string matches against an empty string match expression" do
+      assert matches?("", "")
+    end
+
+    test "string matches literal string" do
+      assert matches?("dog", "dog")
+    end
+
+    test "does not match when not a substring" do
+      refute matches?("cat", "dog")
+    end
+
+    test "string matches substring match expression" do
+      assert matches?("abso lutely", "lute")
+    end
+
+    test "string matches a match expression containing a wildcard" do
+      assert matches?("at least five things", "at least * things")
+    end
+
+    test "matches? can pass through options" do
+      refute matches?("manpig", "man*pig", match_type: :one_or_more)
+      assert matches?("manpig", "man*pig", match_type: :zero_or_more)
+    end
+  end
+
+  describe "to_regex/1" do
     test "converts an empty string to an empty regex" do
       assert to_regex("") == ~r//
     end
@@ -38,6 +65,5 @@ defmodule WildcardTest do
       assert to_regex("cat*dog", match_type: :one)  == ~r/cat.dog/
       assert to_regex("cat**dog", match_type: :one) == ~r/cat..dog/
     end
-
   end
 end

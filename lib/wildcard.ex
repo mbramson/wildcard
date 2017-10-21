@@ -21,6 +21,25 @@ defmodule Wildcard do
   """
 
   @doc """
+  Returns a boolean indicating whether the given string matches against a given
+  wildcard expression.
+
+  ## Examples
+
+      iex> Wildcard.matches?("twelve monkeys", "*cat*")
+      false
+
+      iex> Wildcard.matches?("man bear pig", "man*pig")
+      true
+  """
+  @spec matches?(Binary.t, Binary.t, Keyword.t) :: boolean
+  def matches?(string, match_expression, opts \\ []) do
+    match_expression
+    |> to_regex(opts)
+    |> Regex.match?(string)
+  end
+
+  @doc """
   Converts an expression that can contain wildcards into a regex that can be
   used to match text.
 
